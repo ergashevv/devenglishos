@@ -116,6 +116,7 @@ export default function DashboardPage() {
 
   const totalCompleted = completedSet.size;
   const totalMissions = plan?.missions?.length || 0;
+  const isValidPlan = !!(plan?.missions?.length && plan?.focus);
   const progressPct = totalMissions > 0 ? (totalCompleted / totalMissions) * 100 : 0;
 
   return (
@@ -150,9 +151,9 @@ export default function DashboardPage() {
               AI kunlik rejaingizni tuzmoqda...
             </div>
           </div>
-        ) : !plan ? (
+        ) : !isValidPlan ? (
           <div className="alert alert-error">
-            ⚠️ Rejayi yuklab bo'lmadi. API kalitlarini tekshiring: OPENAI_API_KEY va POSTGRES_URL
+            ⚠️ Rejayi yuklab bo&apos;lmadi. API kalitlarini tekshiring: OPENAI_API_KEY va POSTGRES_URL
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -193,7 +194,7 @@ export default function DashboardPage() {
                     {plan.targetMinutes} daqiqalik ta'lim
                   </div>
                   <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
-                    {plan.focus.map((f) => (
+                    {(plan.focus ?? []).map((f) => (
                       <span key={f} className="badge badge-primary">
                         {f}
                       </span>
@@ -240,7 +241,7 @@ export default function DashboardPage() {
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {plan.missions.map((mission, idx) => {
+                {(plan.missions ?? []).map((mission, idx) => {
                   const isCompleted = completedSet.has(mission.id);
                   const isActive = activeMission === mission.id || (idx === 0 && !activeMission && !isCompleted);
                   const isLocked = !isCompleted && !isActive && idx > 0 &&

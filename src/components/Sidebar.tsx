@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -36,7 +37,15 @@ export default function Sidebar() {
     <aside className="sidebar">
       {/* Logo */}
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">⚡</div>
+        <div className="sidebar-logo-icon">
+          <Image
+            src="/logo.png"
+            alt="DevEnglish OS Logo"
+            width={40}
+            height={40}
+            style={{ borderRadius: 10, objectFit: 'cover' }}
+          />
+        </div>
         <div>
           <div className="sidebar-logo-text">DevEnglish OS</div>
           <div className="sidebar-logo-sub">AI Mentor Platform</div>

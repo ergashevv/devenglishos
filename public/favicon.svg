@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6C63FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6584;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="64" height="64" rx="14" fill="#111220"/>
+
+  <!-- Speech bubble body -->
+  <path d="M12 14 C12 10.7 14.7 8 18 8 L46 8 C49.3 8 52 10.7 52 14 L52 38 C52 41.3 49.3 44 46 44 L36 44 L30 54 L24 44 L18 44 C14.7 44 12 41.3 12 38 Z"
+        fill="url(#grad1)" opacity="0.15" filter="url(#glow)"/>
+  <path d="M12 14 C12 10.7 14.7 8 18 8 L46 8 C49.3 8 52 10.7 52 14 L52 38 C52 41.3 49.3 44 46 44 L36 44 L30 54 L24 44 L18 44 C14.7 44 12 41.3 12 38 Z"
+        fill="none" stroke="url(#grad1)" stroke-width="2"/>
+
+  <!-- Lightning bolt inside -->
+  <path d="M35 12 L24 30 L31 30 L29 52 L42 28 L34 28 Z"
+        fill="url(#grad1)" filter="url(#glow)"/>
+</svg>

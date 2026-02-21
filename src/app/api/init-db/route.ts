@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { initDB } from '@/lib/db';
 
+// Prevent Next.js from statically pre-rendering this route at build time
+export const dynamic = 'force-dynamic';
+
 export async function POST() {
   try {
     await initDB();

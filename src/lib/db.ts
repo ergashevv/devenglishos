@@ -1,10 +1,36 @@
-import { neon } from '@neondatabase/serverless';
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
 
-const sql = neon(process.env.POSTGRES_URL!);
+// Lazily instantiated so the connection string is only required at runtime,
+// not during the Next.js static build phase (where env vars aren't available).
+let _sql: NeonQueryFunction<boolean, boolean> | null = null;
+
+function getClient(): NeonQueryFunction<boolean, boolean> {
+  if (!_sql) {
+    const url = process.env.POSTGRES_URL;
+    if (!url) throw new Error('POSTGRES_URL environment variable is not set');
+    _sql = neon(url);
+  }
+  return _sql;
+}
+
+// A Proxy so `import sql from '@/lib/db'` keeps working as a tagged-template
+// client (sql`SELECT ...`) without any changes to consumer files.
+const sql = new Proxy(
+  function () {} as unknown as NeonQueryFunction<boolean, boolean>,
+  {
+    apply(_target, _thisArg, args) {
+      return (getClient() as unknown as (...a: unknown[]) => unknown)(...args);
+    },
+    get(_target, prop) {
+      return (getClient() as unknown as Record<string | symbol, unknown>)[prop];
+    },
+  }
+);
 
 export default sql;
 
 export async function initDB() {
+  const sql = getClient();
   // daily_logs: tracks each day's activity
   await sql`
     CREATE TABLE IF NOT EXISTS daily_logs (
