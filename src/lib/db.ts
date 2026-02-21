@@ -39,6 +39,7 @@ export async function initDB() {
       listening_minutes INTEGER DEFAULT 0,
       speaking_minutes INTEGER DEFAULT 0,
       vocab JSONB DEFAULT '[]',
+      plan JSONB, -- AI generated plan cache
       notes TEXT,
       completed BOOLEAN DEFAULT FALSE,
       minimal_mode_used BOOLEAN DEFAULT FALSE,

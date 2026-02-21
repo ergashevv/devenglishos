@@ -7,12 +7,16 @@ import { useEffect, useState } from 'react';
 
 const NAV_ITEMS = [
   { href: '/', icon: '🏠', label: 'Dashboard' },
-  { href: '/practice', icon: '📚', label: 'Practice' },
+  { href: '/assessment', icon: '🎯', label: 'Assessment' },
+  { href: '/roadmap', icon: '🗺️', label: 'Roadmap' },
+  { href: '/vocabulary', icon: '📖', label: 'Vocabulary' },
+  { href: '/homework', icon: '✍️', label: 'Homework' },
   { href: '/speaking', icon: '🎤', label: 'Speaking' },
-  { href: '/writing', icon: '✍️', label: 'Writing' },
+  { href: '/writing', icon: '📝', label: 'Writing' },
   { href: '/progress', icon: '📊', label: 'Progress' },
   { href: '/evaluation', icon: '🧪', label: 'Evaluation' },
 ];
+
 
 export default function Sidebar() {
   const pathname = usePathname();
